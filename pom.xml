@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2023-2025 "Neo4j,"
+    Neo4j Sweden AB [https://neo4j.com]
+
+    This file is part of Neo4j.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.6</version>
+		<relativePath />
+		<!-- lookup parent from repository -->
+	</parent>
+	<groupId>org.neo4j</groupId>
+	<artifactId>sql2cypher-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>sql2cypher-api</name>
+	<description>sql2cypher-api</description>
+	<url />
+	<licenses>
+		<license />
+	</licenses>
+	<developers>
+		<developer />
+	</developers>
+	<scm>
+		<connection />
+		<developerConnection />
+		<tag />
+		<url />
+	</scm>
+	<properties>
+		<checkstyle.version>10.23.1</checkstyle.version>
+		<checkstyle.version>10.23.1</checkstyle.version>
+		<java.version>17</java.version>
+		<license-maven-plugin.version>5.0.0</license-maven-plugin.version>
+		<maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+		<neo4j-jdbc.version>6.5.0</neo4j-jdbc.version>
+		<sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
+		<spring-javaformat.version>0.0.44</spring-javaformat.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j-jdbc-bom</artifactId>
+				<version>${neo4j-jdbc.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-jdbc-translator-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>io.spring.javaformat</groupId>
+					<artifactId>spring-javaformat-maven-plugin</artifactId>
+					<version>${spring-javaformat.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven-checkstyle-plugin.version}</version>
+					<configuration>
+						<excludes>**/module-info.java</excludes>
+						<includeTestSourceDirectory>true</includeTestSourceDirectory>
+						<configLocation>etc/checkstyle/config.xml</configLocation>
+						<suppressionsLocation>etc/checkstyle/suppressions.xml</suppressionsLocation>
+						<inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>true</failsOnError>
+						<includeTestSourceDirectory>true</includeTestSourceDirectory>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>${checkstyle.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>io.spring.javaformat</groupId>
+							<artifactId>spring-javaformat-checkstyle</artifactId>
+							<version>${spring-javaformat.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>${license-maven-plugin.version}</version>
+					<configuration>
+						<licenseSets>
+							<licenseSet>
+								<header>${maven.multiModuleProjectDirectory}/etc/license.tpl</header>
+								<properties>
+									<year>2025</year>
+								</properties>
+								<includes>
+									<include>**</include>
+								</includes>
+								<excludes>
+									<exclude>**/Dockerfile.*</exclude>
+									<exclude>.dockerignore</exclude>
+									<exclude>**/*.adoc</exclude>
+									<exclude>**/*.conf</exclude>
+									<exclude>**/*.csv</exclude>
+									<exclude>**/*.cypher</exclude>
+									<exclude>**/*.script</exclude>
+									<exclude>**/*.tpl</exclude>
+									<exclude>**/.env</exclude>
+									<exclude>**/.snyk</exclude>
+									<exclude>**/org.mockito.plugins.MockMaker</exclude>
+									<exclude>LICENSE.txt</exclude>
+									<exclude>**/README</exclude>
+								</excludes>
+							</licenseSet>
+						</licenseSets>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.github.ekryd.sortpom</groupId>
+					<artifactId>sortpom-maven-plugin</artifactId>
+					<version>${sortpom-maven-plugin.version}</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<keepBlankLines>true</keepBlankLines>
+						<nrOfIndentSpace>-1</nrOfIndentSpace>
+						<sortProperties>true</sortProperties>
+						<sortDependencies>scope,groupId,artifactId</sortDependencies>
+						<createBackupFile>false</createBackupFile>
+						<expandEmptyElements>false</expandEmptyElements>
+						<verifyFail>stop</verifyFail>
+						<verifyFailOn>strict</verifyFailOn>
+						<spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>com.github.ekryd.sortpom</groupId>
+				<artifactId>sortpom-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+						<phase>validate</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<phase>validate</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.spring.javaformat</groupId>
+				<artifactId>spring-javaformat-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>validate</goal>
+						</goals>
+						<phase>validate</phase>
+						<inherited>true</inherited>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>checkstyle-validation</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<phase>validate</phase>
+						<inherited>true</inherited>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<configuration>
+					<buildArgs>
+						<buildArg>--initialize-at-build-time=org.jooq.SQLDialectCategory</buildArg>
+						<buildArg>--initialize-at-build-time=org.jooq.SQLDialect$RequiredVersion</buildArg>
+					</buildArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
