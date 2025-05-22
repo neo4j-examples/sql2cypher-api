@@ -4,7 +4,7 @@ This project is a proof of concept how to use the default translator of the [Neo
 
 Here are two possible example requests:
 
-```http request
+```
 POST 127.0.0.1:8080/translate
 Content-Type: text/plain
 
@@ -14,7 +14,7 @@ JOIN Movie m USING (ACTED_IN)
 
 Or you can use a JSON body like this
 
-```http request
+```
 POST 127.0.0.1:8080/translate
 Content-Type: application/json
 
